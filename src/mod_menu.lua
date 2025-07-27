@@ -1,13 +1,12 @@
 -- balatroModMenu: in-game mod manager for Balatro
 --
--- This script implements a Lua based mod manager and downloader.
+-- This script implements a Lua-based mod manager and downloader.
 -- It uses LuaSocket for HTTP requests, dkjson for JSON parsing, and
 -- executes git commands to download and update mods.
 -- The UI is built with ImGui.
 --
--- NOTE: This file is a simplified example implementation. Actual
--- integration with Balatro and its modding framework may require
--- additional setup not shown here.
+-- NOTE: Actual integration with Balatro and its modding framework may
+-- require additional setup not shown here.
 
 local json = require('dkjson')
 local socket_http = require('socket.http')
@@ -19,17 +18,11 @@ local ModMenu = {}
 ModMenu.mods_path = 'Mods'
 
 -- URL of remote index listing available mods
-ModMenu.index_url = 'https://example.com/balatro/mod_index.json'
-
-
+ModMenu.index_url = 'https://example.com/balatro/mod_index.json'  -- CHANGE THIS
 
 -- default path is relative to this script's location
 local script_dir = (debug.getinfo(1, 'S').source:gsub('^@', '')):match('(.*/)' ) or './'
 ModMenu.index_file = script_dir .. 'mod_index.json'
-=======
-ModMenu.index_file = 'mod_index.json'
-
-
 
 -- table populated with data from mod_index.json
 ModMenu.available_mods = {}
@@ -78,7 +71,6 @@ end
 -- Index fetching and installed mod scanning
 ------------------------------------------------------
 
--- Download mod_index.json from the internet
 function ModMenu.fetch_index()
     if ModMenu.index_url and ModMenu.index_url ~= '' then
         local body, status = socket_http.request(ModMenu.index_url)
@@ -93,7 +85,6 @@ function ModMenu.fetch_index()
     return load_index_file(ModMenu.index_file)
 end
 
--- Scan Mods folder for installed mods and read mod.json
 function ModMenu.scan_installed()
     ModMenu.installed_mods = {}
     for entry in lfs.dir(ModMenu.mods_path) do
@@ -175,4 +166,5 @@ function ModMenu.draw()
 end
 
 return ModMenu
+
 
