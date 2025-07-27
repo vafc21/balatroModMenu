@@ -30,6 +30,7 @@ via `ModMenu.draw()`.
 `ModMenu.index_url`. If that fails, it falls back to loading the local
 `mod_index.json` that ships with this repository.
 
+
 The exact integration steps depend on the loader (SteamODD/Lovely) used by
 Balatro. See the comments in `mod_menu.lua` for details.
 
