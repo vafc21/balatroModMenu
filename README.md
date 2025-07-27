@@ -1,7 +1,7 @@
 # Balatro Mod Menu & Downloader
 
 This project provides an in-game mod manager for **Balatro**. It adds a new
-"Mod Menu" button inside the main menu that lets players download, install and
+"Mod Menu" button inside the main menu that lets players download, install, and
 update mods directly from within the game.
 
 The mod menu is written in Lua and built using ImGui. It relies on
@@ -11,7 +11,7 @@ available on the user's system in order for mods to be cloned or updated.
 ## Features
 
 - Fetches a remote `mod_index.json` containing a list of available mods.
-- Displays each mod with its name, description and install/update button.
+- Displays each mod with its name, description, and install/update button.
 - Clones mods from their GitHub repositories into the game's `Mods` folder.
 - Uses `git pull` to update existing mods.
 - Reads each mod's `mod.json` to show installed version information.
@@ -35,11 +35,11 @@ The local index file is looked up relative to the directory containing
 with your mod loader.
 
 The exact integration steps depend on the loader (SteamODD/Lovely) used by
-Balatro. See the comments in `mod_menu.lua` for details.
+Balatro. See the comments in `mod_menu.lua` for implementation details.
 
 ### Lovely integration example
 
-For Lovely-based loaders you can create a `lovely.toml` manifest to inject the
+For Lovely-based loaders, create a `lovely.toml` manifest to inject the
 script early during startup:
 
 ```toml
@@ -48,7 +48,7 @@ version = "1.0.0"
 priority = 0
 
 [[patches]]
-module = { name = "mod_menu", source = "src/mod_menu.lua", before = "main.lua" }
-```
+[patches.module]
+source = "src/mod_menu.lua"
+before = "main.lua"
 
-Add another patch to insert a button into `functions/UI_definitions.lua` next to the "Collection" button. When pressed, it should call `ModMenu.toggle()`. Remember to invoke `ModMenu.draw()` each frame so the window can appear.

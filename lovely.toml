@@ -3,4 +3,7 @@ version = "1.0.0"
 priority = 0
 
 [[patches]]
-module = { name = "mod_menu", source = "src/mod_menu.lua", before = "main.lua" }
+[patches.module]
+source = "src/mod_menu.lua"
+before = "main.lua"
+
