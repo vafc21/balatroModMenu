@@ -21,11 +21,23 @@ ModMenu.mods_path = 'Mods'
 -- URL of remote index listing available mods
 ModMenu.index_url = 'https://example.com/balatro/mod_index.json'
 
+-- optional local fallback index file
+-- default path is relative to this script's location
+local script_dir = (debug.getinfo(1, 'S').source:gsub('^@', '')):match('(.*/)' ) or './'
+ModMenu.index_file = script_dir .. 'mod_index.json'
+
 -- table populated with data from mod_index.json
 ModMenu.available_mods = {}
 
 -- table of installed mods with version info
 ModMenu.installed_mods = {}
+
+-- whether the UI window is currently visible
+ModMenu.visible = false
+
+function ModMenu.toggle()
+    ModMenu.visible = not ModMenu.visible
+end
 
 ------------------------------------------------------
 -- Utility functions
@@ -42,22 +54,38 @@ local function run_git_command(cmd)
     return result == 0
 end
 
+local function load_index_file(path)
+    if not file_exists(path) then
+        return nil, 'index file not found: ' .. path
+    end
+    local f = io.open(path, 'r')
+    local contents = f:read('*a')
+    f:close()
+    local index, pos, err = json.decode(contents, 1, nil)
+    if err then
+        return nil, 'failed to parse index file: ' .. err
+    end
+    ModMenu.available_mods = index.mods or {}
+    return true
+end
+
 ------------------------------------------------------
 -- Index fetching and installed mod scanning
 ------------------------------------------------------
 
 -- Download mod_index.json from the internet
 function ModMenu.fetch_index()
-    local body, status = socket_http.request(ModMenu.index_url)
-    if not body or status ~= 200 then
-        return nil, 'failed to fetch index: HTTP ' .. tostring(status)
+    if ModMenu.index_url and ModMenu.index_url ~= '' then
+        local body, status = socket_http.request(ModMenu.index_url)
+        if body and status == 200 then
+            local index, pos, err = json.decode(body, 1, nil)
+            if not err then
+                ModMenu.available_mods = index.mods or {}
+                return true
+            end
+        end
     end
-    local index, pos, err = json.decode(body, 1, nil)
-    if err then
-        return nil, 'failed to parse index: ' .. err
-    end
-    ModMenu.available_mods = index.mods or {}
-    return true
+    return load_index_file(ModMenu.index_file)
 end
 
 -- Scan Mods folder for installed mods and read mod.json
@@ -109,6 +137,7 @@ end
 ------------------------------------------------------
 
 function ModMenu.draw()
+    if not ModMenu.visible then return end
     if imgui.Begin('Balatro Mod Menu') then
         if imgui.Button('Refresh Mod List') then
             ModMenu.fetch_index()
