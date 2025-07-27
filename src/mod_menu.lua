@@ -21,10 +21,15 @@ ModMenu.mods_path = 'Mods'
 -- URL of remote index listing available mods
 ModMenu.index_url = 'https://example.com/balatro/mod_index.json'
 
--- optional local fallback index file
+
+
 -- default path is relative to this script's location
 local script_dir = (debug.getinfo(1, 'S').source:gsub('^@', '')):match('(.*/)' ) or './'
 ModMenu.index_file = script_dir .. 'mod_index.json'
+=======
+ModMenu.index_file = 'mod_index.json'
+
+
 
 -- table populated with data from mod_index.json
 ModMenu.available_mods = {}
