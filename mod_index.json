@@ -1,0 +1,40 @@
+{
+  "mods": [
+    {
+      "name": "Cryptid",
+      "folder": "Cryptid",
+      "repo_url": "https://github.com/SpectralPack/Cryptid.git",
+      "description": "An unbalanced Balatro mod"
+    },
+    {
+      "name": "BalatroMultiplayer",
+      "folder": "BalatroMultiplayer",
+      "repo_url": "https://github.com/Balatro-Multiplayer/BalatroMultiplayer.git",
+      "description": "A Multiplayer Mod for Balatro"
+    },
+    {
+      "name": "balatro-mobile-maker",
+      "folder": "balatro-mobile-maker",
+      "repo_url": "https://github.com/blake502/balatro-mobile-maker.git",
+      "description": "Create a mobile Balatro app from your Steam version of Balatro"
+    },
+    {
+      "name": "Bunco",
+      "folder": "Bunco",
+      "repo_url": "https://github.com/Firch/Bunco.git",
+      "description": "Bunco is a vanilla-style Balatro content mod"
+    },
+    {
+      "name": "Pokermon",
+      "folder": "Pokermon",
+      "repo_url": "https://github.com/InertSteak/Pokermon.git",
+      "description": "A full content Balatro mod where every joker is a Pokemon."
+    },
+    {
+      "name": "JokerDisplay",
+      "folder": "JokerDisplay",
+      "repo_url": "https://github.com/nh6574/JokerDisplay.git",
+      "description": "Simple Balatro mod that displays information such as modifiers or relevant hands, ranks or suits under Jokers."
+    }
+  ]
+}
