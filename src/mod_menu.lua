@@ -21,7 +21,7 @@ ModMenu.mods_path = 'Mods'
 -- URL of remote index listing available mods
 ModMenu.index_url = 'https://example.com/balatro/mod_index.json'
 
--- optional local fallback index file
+
 
 -- default path is relative to this script's location
 local script_dir = (debug.getinfo(1, 'S').source:gsub('^@', '')):match('(.*/)' ) or './'
@@ -30,11 +30,19 @@ ModMenu.index_file = script_dir .. 'mod_index.json'
 ModMenu.index_file = 'mod_index.json'
 
 
+
 -- table populated with data from mod_index.json
 ModMenu.available_mods = {}
 
 -- table of installed mods with version info
 ModMenu.installed_mods = {}
+
+-- whether the UI window is currently visible
+ModMenu.visible = false
+
+function ModMenu.toggle()
+    ModMenu.visible = not ModMenu.visible
+end
 
 ------------------------------------------------------
 -- Utility functions
@@ -134,6 +142,7 @@ end
 ------------------------------------------------------
 
 function ModMenu.draw()
+    if not ModMenu.visible then return end
     if imgui.Begin('Balatro Mod Menu') then
         if imgui.Button('Refresh Mod List') then
             ModMenu.fetch_index()

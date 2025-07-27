@@ -31,6 +31,27 @@ via `ModMenu.draw()`.
 `mod_index.json` that ships with this repository.
 
 
+
 The exact integration steps depend on the loader (SteamODD/Lovely) used by
 Balatro. See the comments in `mod_menu.lua` for details.
+
+### Lovely integration example
+
+For Lovely-based loaders you can create a `lovely.toml` manifest to inject the
+script early during startup:
+
+```toml
+[manifest]
+version = "1.0.0"
+priority = 0
+
+[[patches]]
+[patches.module]
+source = "src/mod_menu.lua"
+before = "main.lua"
+```
+
+Add another patch to insert a button into `functions/UI_definitions.lua` next to
+the "Collection" button. When the button is pressed call `ModMenu.toggle()` and
+invoke `ModMenu.draw()` each frame so the window can appear.
 
