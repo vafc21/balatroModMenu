@@ -1,2 +1,31 @@
-# balatroModMenu
-Balatro Mod Menu &amp; Downloader is a full-featured in-game mod manager and mod downloader for the game Balatro, which is built on the LÖVE 2D (Love2D) engine and supports modding through SteamODD and Lovely.
+# Balatro Mod Menu & Downloader
+
+This project provides an in-game mod manager for **Balatro**. It adds a new
+"Mod Menu" button inside the main menu that lets players download, install and
+update mods directly from within the game.
+
+The mod menu is written in Lua and built using ImGui. It relies on
+LuaSocket for network requests and `dkjson` for JSON parsing. Git must be
+available on the user's system in order for mods to be cloned or updated.
+
+## Features
+
+- Fetches a remote `mod_index.json` containing a list of available mods.
+- Displays each mod with its name, description and install/update button.
+- Clones mods from their GitHub repositories into the game's `Mods` folder.
+- Uses `git pull` to update existing mods.
+- Reads each mod's `mod.json` to show installed version information.
+
+## Files
+
+- `src/mod_menu.lua` – main implementation of the mod manager UI and logic.
+
+## Usage
+
+Integrate `mod_menu.lua` into a Balatro modding environment that supports
+ImGui and LuaSocket. Call `ModMenu.fetch_index()` on startup and render the UI
+via `ModMenu.draw()`.
+
+The exact integration steps depend on the loader (SteamODD/Lovely) used by
+Balatro. See the comments in `mod_menu.lua` for details.
+
