@@ -26,6 +26,14 @@ Integrate `mod_menu.lua` into a Balatro modding environment that supports
 ImGui and LuaSocket. Call `ModMenu.fetch_index()` on startup and render the UI
 via `ModMenu.draw()`.
 
+`ModMenu.fetch_index()` will attempt to download the index specified by
+`ModMenu.index_url`. If that fails, it falls back to loading the local
+`mod_index.json` that ships with this repository.
+
+The local index file is looked up relative to the directory containing
+`mod_menu.lua`, so you can package it alongside the script when integrating
+with your mod loader.
+
 The exact integration steps depend on the loader (SteamODD/Lovely) used by
 Balatro. See the comments in `mod_menu.lua` for details.
 
